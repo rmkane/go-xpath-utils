@@ -10,6 +10,9 @@ import (
 	"github.com/antchfx/xmlquery"
 )
 
+// AttributePathStart defines the prefix for attribute XPaths
+const AttributePathStart = "/@"
+
 // ParseXmlStr parses an XML string.
 func ParseXmlStr(xmlStr string) (*xmlquery.Node, error) {
 	return xmlquery.Parse(strings.NewReader(xmlStr))
@@ -69,5 +72,6 @@ func GetAttributeNameFromExpression(expr string) (string, bool) {
 	if !IsAttributeExpression(expr) {
 		return "", false
 	}
-	return expr[strings.LastIndex(expr, "/@")+2:], true
+	lastAttributeIndex := strings.LastIndex(expr, AttributePathStart) + 2
+	return expr[lastAttributeIndex:], true
 }
