@@ -46,7 +46,7 @@ func SaveXML(doc *xmlquery.Node, filename string) error {
 
 // NormalizeXPath ensures that the XPath expression starts with a double slash.
 func NormalizeXPath(expr string) string {
-	return regexp.MustCompile(`^/+`).ReplaceAllString(expr, "//")
+	return "//" + strings.TrimLeft(expr, "/")
 }
 
 // IsAttributeExpression checks if the expression is targeting an attribute.
