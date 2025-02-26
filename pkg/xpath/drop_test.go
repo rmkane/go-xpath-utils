@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"xpath-example/internal/tests"
+	"github.com/rmkane/go-xpath-utils/internal/tests"
 )
 
 func TestDropNodeOrAttrByXPath_Node(t *testing.T) {

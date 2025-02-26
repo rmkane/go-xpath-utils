@@ -1,24 +1,8 @@
 package xpath
 
 import (
-	"fmt"
-
 	"github.com/antchfx/xmlquery"
 )
-
-// UpdateByXPath updates the value of the node that matches the XPath expression in the XML document.
-func UpdateByXPath(filename string, expr string, newValue string) error {
-	doc, err := LoadXML(filename)
-	if err != nil {
-		return err
-	}
-
-	if ok := UpdateNodeOrAttrByXPath(doc, expr, newValue); !ok {
-		return fmt.Errorf("could not update value")
-	}
-
-	return SaveXML(doc, filename)
-}
 
 // UpdateNodeOrAttrByXPath updates the value of the node that matches the XPath expression in the XML document.
 func UpdateNodeOrAttrByXPath(doc *xmlquery.Node, expr string, newValue string) bool {

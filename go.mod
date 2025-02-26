@@ -1,4 +1,4 @@
-module xpath-example
+module github.com/rmkane/go-xpath-utils
 
 go 1.24
 
