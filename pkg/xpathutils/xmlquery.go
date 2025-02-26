@@ -129,7 +129,7 @@ func RemoveAttrSafe(node *xmlquery.Node, key string) bool {
 //
 
 // newXMLName converts a string into a xml.Name struct.
-// This is a copy of the private [xmlquery.newXMLName] function.
+// This is a copy of the private xmlquery.newXMLName function.
 func newXMLName(name string) xml.Name {
 	if i := strings.IndexByte(name, ':'); i > 0 {
 		return xml.Name{

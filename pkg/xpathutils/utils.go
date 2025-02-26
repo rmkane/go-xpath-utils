@@ -10,8 +10,8 @@ import (
 	"github.com/antchfx/xmlquery"
 )
 
-// AttributePathStart defines the prefix for attribute XPaths
-const AttributePathStart = "/@"
+// attributePathStart defines the prefix for attribute XPaths
+const attributePathStart = "/@"
 
 // ParseXmlStr parses an XML string.
 func ParseXmlStr(xmlStr string) (*xmlquery.Node, error) {
@@ -79,24 +79,24 @@ func GetAttributeNameFromExpression(expr string) (string, bool) {
 	return expr[index:], true
 }
 
-// getLastIndexOfLastAttribute extracts the attribute name from the expression.
-func getLastIndexOfLastAttribute(expr string) (int, bool) {
-	index := strings.LastIndex(expr, AttributePathStart)
-	if index == -1 {
-		return -1, false
-	}
-	return index + len(AttributePathStart), true
-}
-
 // RemoveAttributeFromXPath trims the trailing attribute selector from an XPath expression, if present.
 // Example: "/root/item/@id" → "/root/item"
 func RemoveAttributeFromXPath(expr string) (string, bool) {
 	if !IsAttributeExpression(expr) {
 		return expr, false
 	}
-	index := strings.LastIndex(expr, AttributePathStart)
+	index := strings.LastIndex(expr, attributePathStart)
 	if index == -1 {
 		return expr, false
 	}
 	return expr[:index], true
+}
+
+// getLastIndexOfLastAttribute extracts the attribute name from the expression.
+func getLastIndexOfLastAttribute(expr string) (int, bool) {
+	index := strings.LastIndex(expr, attributePathStart)
+	if index == -1 {
+		return -1, false
+	}
+	return index + len(attributePathStart), true
 }
