@@ -61,3 +61,23 @@ func TestGetAttributeNameFromExpression(t *testing.T) {
 		})
 	}
 }
+
+func TestRemoveAttributeFromXPath(t *testing.T) {
+	testCases := []struct {
+		expression string
+		expected   string
+		success    bool
+	}{
+		{"//foo/@id", "//foo", true},
+		{"//foo/bar/@name", "//foo/bar", true},
+		{"//foo/bar", "//foo/bar", false},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.expression, func(t *testing.T) {
+			actual, ok := RemoveAttributeFromXPath(tc.expression)
+			assert.True(t, ok == tc.success)
+			assert.Equal(t, tc.expected, actual, tc.expression)
+		})
+	}
+}

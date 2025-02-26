@@ -72,6 +72,31 @@ func GetAttributeNameFromExpression(expr string) (string, bool) {
 	if !IsAttributeExpression(expr) {
 		return "", false
 	}
-	lastAttributeIndex := strings.LastIndex(expr, AttributePathStart) + 2
-	return expr[lastAttributeIndex:], true
+	index, ok := getLastIndexOfLastAttribute(expr)
+	if !ok {
+		return "", false
+	}
+	return expr[index:], true
+}
+
+// getLastIndexOfLastAttribute extracts the attribute name from the expression.
+func getLastIndexOfLastAttribute(expr string) (int, bool) {
+	index := strings.LastIndex(expr, AttributePathStart)
+	if index == -1 {
+		return -1, false
+	}
+	return index + len(AttributePathStart), true
+}
+
+// RemoveAttributeFromXPath trims the trailing attribute selector from an XPath expression, if present.
+// Example: "/root/item/@id" → "/root/item"
+func RemoveAttributeFromXPath(expr string) (string, bool) {
+	if !IsAttributeExpression(expr) {
+		return expr, false
+	}
+	index := strings.LastIndex(expr, AttributePathStart)
+	if index == -1 {
+		return expr, false
+	}
+	return expr[:index], true
 }

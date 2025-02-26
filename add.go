@@ -2,7 +2,6 @@ package xpath
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/antchfx/xmlquery"
 
@@ -45,20 +44,15 @@ func AddByXPathFromString(xmlStr, expr, key, value string) (string, error) {
 // - If the XPath targets an element, a new child node is created with the given value.
 func addNodeOrAttrByXPath(doc *xmlquery.Node, expr, key, value string) bool {
 	attrName, _ := xpathutils.GetAttributeNameFromExpression(expr)
-	isAttribute := attrName != ""
+	trimmedExpr, _ := xpathutils.RemoveAttributeFromXPath(expr)
 
-	if isAttribute {
-		// Make sure we can find the element, so remove the attribute from the path
-		expr = strings.TrimSuffix(expr, xpathutils.AttributePathStart+attrName)
-	}
-
-	node := xmlquery.FindOne(doc, xpathutils.NormalizeXPath(expr))
+	node := xmlquery.FindOne(doc, xpathutils.NormalizeXPath(trimmedExpr))
 	if node == nil {
 		return false
 	}
 
 	// If XPath targets an attribute, add it to the parent node
-	if isAttribute {
+	if attrName != "" {
 		if attrName != key {
 			return false
 		}
@@ -72,13 +66,12 @@ func addNodeOrAttrByXPath(doc *xmlquery.Node, expr, key, value string) bool {
 }
 
 func createWrappedTextNode(key, value string) *xmlquery.Node {
-	node := xmlquery.Node{
+	return &xmlquery.Node{
 		Type: xmlquery.ElementNode,
 		Data: key,
+		FirstChild: &xmlquery.Node{
+			Type: xmlquery.TextNode,
+			Data: value,
+		},
 	}
-	xmlquery.AddChild(&node, &xmlquery.Node{
-		Type: xmlquery.TextNode,
-		Data: value,
-	})
-	return &node
 }
