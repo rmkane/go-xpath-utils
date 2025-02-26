@@ -1,4 +1,4 @@
-package xpath
+package xpathutils
 
 import (
 	"testing"
@@ -28,10 +28,10 @@ func TestIsAttributeExpression(t *testing.T) {
 		expression string
 		expected   bool
 	}{
-		{"valid attribute xpath", "//foo/@id", true},
-		{"valid attribute xpath", "//foo/bar/@name", true},
-		{"valid element xpath", "//div[@id='value']", false},
-		{"invalid attribute xpath", "@foo", false},
+		{"valid attribute xpathutils", "//foo/@id", true},
+		{"valid attribute xpathutils", "//foo/bar/@name", true},
+		{"valid element xpathutils", "//div[@id='value']", false},
+		{"invalid attribute xpathutils", "@foo", false},
 	}
 
 	for _, tc := range testCases {

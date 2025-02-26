@@ -1,4 +1,4 @@
-package xpath
+package xpathutils
 
 import (
 	"fmt"
@@ -9,6 +9,11 @@ import (
 
 	"github.com/antchfx/xmlquery"
 )
+
+// ParseXmlStr parses an XML string.
+func ParseXmlStr(xmlStr string) (*xmlquery.Node, error) {
+	return xmlquery.Parse(strings.NewReader(xmlStr))
+}
 
 // LoadXML loads an XML file and returns the root node.
 func LoadXML(filename string) (*xmlquery.Node, error) {
@@ -44,6 +49,11 @@ func SaveXML(doc *xmlquery.Node, filename string) error {
 	return os.WriteFile(filename, []byte(xml), 0644)
 }
 
+// Serialize serializes the XML document into a string.
+func Serialize(doc *xmlquery.Node) (string, error) {
+	return doc.OutputXML(true), nil
+}
+
 // NormalizeXPath ensures that the XPath expression starts with a double slash.
 func NormalizeXPath(expr string) string {
 	return "//" + strings.TrimLeft(expr, "/")
@@ -60,36 +70,4 @@ func GetAttributeNameFromExpression(expr string) (string, bool) {
 		return "", false
 	}
 	return expr[strings.LastIndex(expr, "/@")+2:], true
-}
-
-// HasAttributes checks if the node has any attributes.
-func HasAttributes(node *xmlquery.Node) bool {
-	return node != nil && len(node.Attr) > 0
-}
-
-// RemoveXMLNode removes the node from the XML document.
-func RemoveXMLNode(node *xmlquery.Node) bool {
-	if node == nil || node.Parent == nil {
-		return false
-	}
-
-	parent := node.Parent
-
-	if node.PrevSibling != nil {
-		node.PrevSibling.NextSibling = node.NextSibling
-	} else {
-		parent.FirstChild = node.NextSibling
-	}
-
-	if node.NextSibling != nil {
-		node.NextSibling.PrevSibling = node.PrevSibling
-	} else {
-		parent.LastChild = node.PrevSibling
-	}
-
-	node.Parent = nil
-	node.PrevSibling = nil
-	node.NextSibling = nil
-
-	return true
 }
