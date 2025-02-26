@@ -11,8 +11,12 @@ import (
 // RemoveByXPathFromFile removes a node or attribute at the specified XPath from the XML document.
 // If the XPath targets an attribute, it will be removed from the parent node.
 // If the XPath targets an element, the node and its subtree will be removed.
-func RemoveByXPathFromFile(filename, expr string) error {
-	doc, err := xpathutils.LoadXML(filename)
+func RemoveByXPathFromFile(inputFile, outputFile, expr string) error {
+	if outputFile == "" {
+		outputFile = inputFile
+	}
+
+	doc, err := xpathutils.LoadXML(inputFile)
 	if err != nil {
 		return err
 	}
@@ -21,7 +25,7 @@ func RemoveByXPathFromFile(filename, expr string) error {
 		return fmt.Errorf("failed to remove node or attribute at XPath: %s", expr)
 	}
 
-	return xpathutils.SaveXML(doc, filename)
+	return xpathutils.SaveXML(doc, outputFile)
 }
 
 // RemoveByXPathFromString removes a node or attribute at the specified XPath from the given XML string.

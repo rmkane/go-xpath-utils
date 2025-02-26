@@ -11,8 +11,12 @@ import (
 // AddByXPathFromFile adds a node or attribute at the XPath location in the XML document.
 // If the XPath targets an attribute, it will be added to the parent node.
 // If the XPath targets an element, a new child node with the specified value will be created.
-func AddByXPathFromFile(filename, expr, key, value string) error {
-	doc, err := xpathutils.LoadXML(filename)
+func AddByXPathFromFile(inputFile, outputFile, expr, key, value string) error {
+	if outputFile == "" {
+		outputFile = inputFile
+	}
+
+	doc, err := xpathutils.LoadXML(inputFile)
 	if err != nil {
 		return err
 	}
@@ -21,7 +25,7 @@ func AddByXPathFromFile(filename, expr, key, value string) error {
 		return fmt.Errorf("failed to add node or attribute at XPath: %s", expr)
 	}
 
-	return xpathutils.SaveXML(doc, filename)
+	return xpathutils.SaveXML(doc, outputFile)
 }
 
 // AddByXPathFromString adds a node or attribute at the XPath location in the given XML string.

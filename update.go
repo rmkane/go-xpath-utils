@@ -11,8 +11,12 @@ import (
 // UpdateByXPathFromFile updates the value of a node or attribute at the specified XPath in the XML document.
 // If the XPath targets an attribute, its value is updated.
 // If the XPath targets an element, its content is replaced.
-func UpdateByXPathFromFile(filename, expr, newValue string) error {
-	doc, err := xpathutils.LoadXML(filename)
+func UpdateByXPathFromFile(inputFile, outputFile, expr, newValue string) error {
+	if outputFile == "" {
+		outputFile = inputFile
+	}
+
+	doc, err := xpathutils.LoadXML(inputFile)
 	if err != nil {
 		return err
 	}
@@ -21,7 +25,7 @@ func UpdateByXPathFromFile(filename, expr, newValue string) error {
 		return fmt.Errorf("failed to update node or attribute at XPath: %s", expr)
 	}
 
-	return xpathutils.SaveXML(doc, filename)
+	return xpathutils.SaveXML(doc, outputFile)
 }
 
 // UpdateByXPathFromString updates the value of a node or attribute at the specified XPath in the XML string.

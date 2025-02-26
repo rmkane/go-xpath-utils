@@ -17,14 +17,14 @@ Add an element by XPath:
 
 ```go
 // Add a <baz>zip</baz> element under the first <bar> element in foo.xml
-err := xpath.AddByXPathFromFile("foo.xml", "//bar", "baz", "zip")
+err := xpath.AddByXPathFromFile("foo.xml", "", "//bar", "baz", "zip")
 ```
 
 Add an attribute by XPath:
 
 ```go
 // Add a "buzz" attribute with value "fizzbuzz" to the first <fizz> element
-err := xpath.AddByXPathFromFile("foo.xml", "//fizz/@buzz", "buzz", "fizzbuzz")
+err := xpath.AddByXPathFromFile("foo.xml", "", "//fizz/@buzz", "buzz", "fizzbuzz")
 ```
 
 ### Update
@@ -33,14 +33,14 @@ Update an element value by XPath:
 
 ```go
 // Update the value of the first <bar> element in foo.xml to "baz"
-err := xpath.UpdateByXPathFromFile("foo.xml", "//bar", "baz")
+err := xpath.UpdateByXPathFromFile("foo.xml", "", //bar", "baz")
 ```
 
 Update an attribute by XPath:
 
 ```go
 // Update the "buzz" attribute in the first <fizz> element in foo.xml to "fizzbuzz"
-err := xpath.UpdateByXPathFromFile("foo.xml", "//fizz/@buzz", "fizzbuzz")
+err := xpath.UpdateByXPathFromFile("foo.xml", "", "//fizz/@buzz", "fizzbuzz")
 ```
 
 ### Remove
@@ -49,14 +49,14 @@ Remove an element by XPath:
 
 ```go
 // Remove the first <bar> element from foo.xml
-err := xpath.RemoveByXPathFromFile("foo.xml", "//bar")
+err := xpath.RemoveByXPathFromFile("foo.xml", "", "//bar")
 ```
 
 Remove an attribute by XPath:
 
 ```go
 // Remove the "buzz" attribute from the first <fizz> element in foo.xml
-err := xpath.RemoveByXPathFromFile("foo.xml", "//fizz/@buzz")
+err := xpath.RemoveByXPathFromFile("foo.xml", "", "//fizz/@buzz")
 ```
 
 ### Working with Strings
