@@ -1,6 +1,6 @@
 module github.com/rmkane/go-xpath-utils
 
-go 1.24
+go 1.21
 
 require (
 	github.com/antchfx/xmlquery v1.4.4
