@@ -15,7 +15,7 @@ func TestGetAttrByXPath_NodeValue(t *testing.T) {
 	doc, err := xpathutils.LoadXML(filename)
 	assert.NoError(t, err)
 
-	value, ok := getAttributeByXPath(doc, expr)
+	value, ok := getAttrByXPath(doc, expr)
 	assert.True(t, ok)
 	assert.True(t, value == "09c5e699-4d50-4da3-bd92-f37305c33ed4")
 }

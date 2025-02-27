@@ -15,29 +15,29 @@ func GetAttrByXPathFromFile(inputFile, expr string) (string, error) {
 		return "", err
 	}
 
-	value, ok := getAttributeByXPath(doc, expr)
+	value, ok := getAttrByXPath(doc, expr)
 	if !ok {
 		return "", fmt.Errorf("failed to get node or attribute at XPath: %s", expr)
 	}
 	return value, nil
 }
 
-// GetAttrXPathFromString retrieves the value of an attribute at the specified XPath in the given XML string.
-func GetAttrXPathFromString(xmlStr, expr string) (string, error) {
+// GetAttrByXPathFromString retrieves the value of an attribute at the specified XPath in the given XML string.
+func GetAttrByXPathFromString(xmlStr, expr string) (string, error) {
 	doc, err := xpathutils.ParseXmlStr(xmlStr)
 	if err != nil {
 		return "", err
 	}
 
-	value, ok := getAttributeByXPath(doc, expr)
+	value, ok := getAttrByXPath(doc, expr)
 	if !ok {
 		return "", fmt.Errorf("failed to get node or attribute at XPath: %s", expr)
 	}
 	return value, nil
 }
 
-// getAttributeByXPath retrieves the value of an attribute at the specified XPath in the given XML node tree.
-func getAttributeByXPath(doc *xmlquery.Node, expr string) (string, bool) {
+// getAttrByXPath retrieves the value of an attribute at the specified XPath in the given XML node tree.
+func getAttrByXPath(doc *xmlquery.Node, expr string) (string, bool) {
 	attrName, _ := xpathutils.GetAttributeNameFromExpression(expr)
 	trimmedExpr, _ := xpathutils.RemoveAttributeFromXPath(expr)
 
