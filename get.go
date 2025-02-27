@@ -1,4 +1,4 @@
-package xpath
+package xpathutils
 
 import (
 	"fmt"
@@ -8,8 +8,8 @@ import (
 	"github.com/rmkane/go-xpath-utils/pkg/xpathutils"
 )
 
-// GetAttributeByXPathFromFile retrieves the value of an attribute at the specified XPath in the XML document.
-func GetAttributeByXPathFromFile(inputFile, expr string) (string, error) {
+// GetAttrByXPathFromFile retrieves the value of an attribute at the specified XPath in the XML document.
+func GetAttrByXPathFromFile(inputFile, expr string) (string, error) {
 	doc, err := xpathutils.LoadXML(inputFile)
 	if err != nil {
 		return "", err
@@ -22,8 +22,8 @@ func GetAttributeByXPathFromFile(inputFile, expr string) (string, error) {
 	return value, nil
 }
 
-// GetAttributeXPathFromString retrieves the value of an attribute at the specified XPath in the given XML string.
-func GetAttributeXPathFromString(xmlStr, expr string) (string, error) {
+// GetAttrXPathFromString retrieves the value of an attribute at the specified XPath in the given XML string.
+func GetAttrXPathFromString(xmlStr, expr string) (string, error) {
 	doc, err := xpathutils.ParseXmlStr(xmlStr)
 	if err != nil {
 		return "", err

@@ -1,4 +1,4 @@
-package xpath
+package xpathutils
 
 import (
 	"testing"

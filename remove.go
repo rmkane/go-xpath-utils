@@ -1,4 +1,4 @@
-package xpath
+package xpathutils
 
 import (
 	"fmt"
@@ -8,8 +8,8 @@ import (
 	"github.com/rmkane/go-xpath-utils/pkg/xpathutils"
 )
 
-// RemoveByXPathFromFile removes an attribute at the specified XPath from the XML document.
-func RemoveByXPathFromFile(inputFile, outputFile, expr string) error {
+// RemoveAttrByXPathFromFile removes an attribute at the specified XPath from the XML document.
+func RemoveAttrByXPathFromFile(inputFile, outputFile, expr string) error {
 	if outputFile == "" {
 		outputFile = inputFile
 	}
@@ -26,14 +26,46 @@ func RemoveByXPathFromFile(inputFile, outputFile, expr string) error {
 	return xpathutils.SaveXML(doc, outputFile)
 }
 
-// RemoveByXPathFromString removes an attribute at the specified XPath from the given XML string.
-func RemoveByXPathFromString(xmlStr, expr string) (string, error) {
+// RemoveAttrByXPathFromString removes an attribute at the specified XPath from the given XML string.
+func RemoveAttrByXPathFromString(xmlStr, expr string) (string, error) {
 	doc, err := xpathutils.ParseXmlStr(xmlStr)
 	if err != nil {
 		return "", err
 	}
 
 	if ok := removeAttrByXPath(doc, expr); !ok {
+		return "", fmt.Errorf("failed to remove node or attribute at XPath: %s", expr)
+	}
+
+	return xpathutils.Serialize(doc)
+}
+
+// RemoveNodeByXPathFromFile removes an attribute at the specified XPath from the XML document.
+func RemoveNodeByXPathFromFile(inputFile, outputFile, expr string) error {
+	if outputFile == "" {
+		outputFile = inputFile
+	}
+
+	doc, err := xpathutils.LoadXML(inputFile)
+	if err != nil {
+		return err
+	}
+
+	if ok := removeNodeByXPath(doc, expr); !ok {
+		return fmt.Errorf("failed to remove node or attribute at XPath: %s", expr)
+	}
+
+	return xpathutils.SaveXML(doc, outputFile)
+}
+
+// RemoveNodeByXPathFromString removes an attribute at the specified XPath from the given XML string.
+func RemoveNodeByXPathFromString(xmlStr, expr string) (string, error) {
+	doc, err := xpathutils.ParseXmlStr(xmlStr)
+	if err != nil {
+		return "", err
+	}
+
+	if ok := removeNodeByXPath(doc, expr); !ok {
 		return "", fmt.Errorf("failed to remove node or attribute at XPath: %s", expr)
 	}
 

@@ -1,4 +1,4 @@
-package xpath
+package xpathutils
 
 import (
 	"fmt"
@@ -8,8 +8,8 @@ import (
 	"github.com/rmkane/go-xpath-utils/pkg/xpathutils"
 )
 
-// AddByXPathFromFile adds an attribute at the XPath location in the XML document.
-func AddByXPathFromFile(inputFile, outputFile, expr, value string) error {
+// AddAttrByXPathFromFile adds an attribute at the XPath location in the XML document.
+func AddAttrByXPathFromFile(inputFile, outputFile, expr, value string) error {
 	if outputFile == "" {
 		outputFile = inputFile
 	}
@@ -26,8 +26,8 @@ func AddByXPathFromFile(inputFile, outputFile, expr, value string) error {
 	return xpathutils.SaveXML(doc, outputFile)
 }
 
-// AddByXPathFromString adds an attribute at the XPath location in the given XML string.
-func AddByXPathFromString(xmlStr, expr, value string) (string, error) {
+// AddAttrByXPathFromString adds an attribute at the XPath location in the given XML string.
+func AddAttrByXPathFromString(xmlStr, expr, value string) (string, error) {
 	doc, err := xpathutils.ParseXmlStr(xmlStr)
 	if err != nil {
 		return "", err

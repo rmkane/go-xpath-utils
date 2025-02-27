@@ -11,36 +11,32 @@ go get github.com/rmkane/go-xpath-utils
 
 ## Usage
 
-### Add
+### Get
 
-Add an element by XPath:
+Get an attribute by XPath:
 
 ```go
-// Add a <baz>zip</baz> element under the first <bar> element in foo.xml
-err := xpath.AddByXPathFromFile("foo.xml", "", "//bar", "baz", "zip")
+// Get the value of the "buzz" attribute in the first <fizz> element in foo.xml
+value, err := xpathutils.GetAttrByXPathFromFile("foo.xml", "", "//fizz/@buzz")
+// value = "fizzbuzz"
 ```
+
+### Add
 
 Add an attribute by XPath:
 
 ```go
 // Add a "buzz" attribute with value "fizzbuzz" to the first <fizz> element
-err := xpath.AddByXPathFromFile("foo.xml", "", "//fizz/@buzz", "buzz", "fizzbuzz")
+err := xpathutils.AddAttrByXPathFromFile("foo.xml", "", "//fizz/@buzz", "fizzbuzz")
 ```
 
 ### Update
-
-Update an element value by XPath:
-
-```go
-// Update the value of the first <bar> element in foo.xml to "baz"
-err := xpath.UpdateByXPathFromFile("foo.xml", "", //bar", "baz")
-```
 
 Update an attribute by XPath:
 
 ```go
 // Update the "buzz" attribute in the first <fizz> element in foo.xml to "fizzbuzz"
-err := xpath.UpdateByXPathFromFile("foo.xml", "", "//fizz/@buzz", "fizzbuzz")
+err := xpathutils.UpdateAttrByXPathFromFile("foo.xml", "", "//fizz/@buzz", "fizzbuzz")
 ```
 
 ### Remove
@@ -49,14 +45,14 @@ Remove an element by XPath:
 
 ```go
 // Remove the first <bar> element from foo.xml
-err := xpath.RemoveByXPathFromFile("foo.xml", "", "//bar")
+err := xpathutils.RemoveNodeByXPathFromFile("foo.xml", "", "//bar")
 ```
 
 Remove an attribute by XPath:
 
 ```go
 // Remove the "buzz" attribute from the first <fizz> element in foo.xml
-err := xpath.RemoveByXPathFromFile("foo.xml", "", "//fizz/@buzz")
+err := xpathutils.RemoveAttrByXPathFromFile("foo.xml", "", "//fizz/@buzz")
 ```
 
 ### Working with Strings
@@ -64,9 +60,9 @@ err := xpath.RemoveByXPathFromFile("foo.xml", "", "//fizz/@buzz")
 These functions also support modifying **XML strings** instead of files:
 
 ```go
-updatedXML, err := xpath.AddByXPathFromString(xmlStr, "//bar", "baz", "zip")
-updatedXML, err := xpath.UpdateByXPathFromString(xmlStr, "//bar", "baz")
-updatedXML, err := xpath.RemoveByXPathFromString(xmlStr, "//bar")
+updatedXML, err := xpathutils.AddByXPathFromString(xmlStr, "//bar", "baz", "zip")
+updatedXML, err := xpathutils.UpdateByXPathFromString(xmlStr, "//bar", "baz")
+updatedXML, err := xpathutils.RemoveByXPathFromString(xmlStr, "//bar")
 ```
 
 ## License

@@ -1,4 +1,4 @@
-package xpath
+package xpathutils
 
 import (
 	"fmt"
@@ -8,8 +8,8 @@ import (
 	"github.com/rmkane/go-xpath-utils/pkg/xpathutils"
 )
 
-// UpdateByXPathFromFile updates the value of an attribute at the specified XPath in the XML document.
-func UpdateByXPathFromFile(inputFile, outputFile, expr, newValue string) error {
+// UpdateAttrByXPathFromFile updates the value of an attribute at the specified XPath in the XML document.
+func UpdateAttrByXPathFromFile(inputFile, outputFile, expr, newValue string) error {
 	if outputFile == "" {
 		outputFile = inputFile
 	}
@@ -26,8 +26,8 @@ func UpdateByXPathFromFile(inputFile, outputFile, expr, newValue string) error {
 	return xpathutils.SaveXML(doc, outputFile)
 }
 
-// UpdateByXPathFromString updates the value of an attribute at the specified XPath in the given XML string.
-func UpdateByXPathFromString(xmlStr, expr, newValue string) (string, error) {
+// UpdateAttrByXPathFromString updates the value of an attribute at the specified XPath in the given XML string.
+func UpdateAttrByXPathFromString(xmlStr, expr, newValue string) (string, error) {
 	doc, err := xpathutils.ParseXmlStr(xmlStr)
 	if err != nil {
 		return "", err
