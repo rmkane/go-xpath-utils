@@ -128,6 +128,13 @@ func RemoveAttrSafe(node *xmlquery.Node, key string) bool {
 // ─── UTILITY FUNCTIONS ──────────────────────────────────────────────────────────
 //
 
+func GetAttrSafe(node *xmlquery.Node, key string) (string, bool) {
+	if !HasAttr(node, key) {
+		return "", false
+	}
+	return node.SelectAttr(key), true
+}
+
 // newXMLName converts a string into a xml.Name struct.
 // This is a copy of the private xmlquery.newXMLName function.
 func newXMLName(name string) xml.Name {
